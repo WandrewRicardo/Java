@@ -1,55 +1,86 @@
-
-package br.com.controleestoque.controleestoque;
-
-public class Clientes {
-    private int telefone;
+package br.com.controleestoque.controledeestoquetest;
+public class TiposDeCliente {
+    private String telefone;
     private String nome;
     private boolean identPj;
-    private String identificador;
-    private String endereco;
-    
-    //construtor classe tipodeclientes
-        public Clientes (String nomedocliente, String endereco, int telefone, String identificador,boolean identPj){
-            nome = nomedocliente;
-            this.endereco = endereco;
+    private String identificador;//pode ser cpf ou cnpj
+    private String email;
+    private String identificadorApenasNumeros;
+   //construtores classe tipodeclientes
+        public TiposDeCliente(String nome, String email, String telefone, String identificador,boolean identPj){
+            this.nome = nome;
+            this.email = email;
             this.telefone = telefone;
             this.identificador = identificador;
             this.identPj = identPj;
             
+        } 
+        public TiposDeCliente(){
+            
         }
-        public void atualizar(String nome, String endereco, int telefone){
-            this.nome = nome;
-            this.telefone = telefone;
-            this.endereco = endereco;
-                  
-        }
-    //identificar se é PJ ou PF    
-         private boolean verificarPJ(int cont1){
-             do{  
-                System.out.println("DIGITE 1 PARA PESSOA JURÍDCA ");
-                System.out.println("DIGITE 2 PARA PESSOA FISICA");
-               
-                    if(cont1 == 1){
-                         return true;
-                    }
-                    else
-                         return false;
-                 
-             }while(cont1 > 0 && cont1 < 3);
         
+    //getters 
+
+        public String getTelefone() {
+            return telefone;
         }
-         //metodo para limpar os dados do cliente
-         public void excluir(){
-             this.nome = null;
-             this.telefone = 0;
-             this.endereco = null;
-             this.identificador = null;
-             this.identPj = false;
-         }
+
+        public String getNome() {
+            return nome;
+        }
+
+        public String getIdentificador() {
+            return identificador;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+        
+    //setters
+        public void atualizarInformacoes(String nome, String email, String telefone) {
+            this.nome = nome;
+            this.email = email;
+            this.telefone = telefone;
+        }
+    // setters individuais
+
+        public void setTelefone(String telefone) {
+            this.telefone = telefone;
+        }
+
+        public void setNome(String nome) {
+            this.nome = nome;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+    // delete objeto
+        public void deleteObjeto(){
+            nome = null;
+            telefone = null;
+            identificador = null;
+            email = null;
+            identPj = false;
+            System.gc(); //sistema de coleta de lixo
+        }
+    public String identificadorTipoDocumento(String identificador){
+        //Remove todos os caracteres que não são números 
+        String identificadorApenasNumeros = identificador.replaceAll("\\D", "");
+        //Verificador se è CPF OU CNPJ
+        if (identificadorApenasNumeros.length() == 11){
+            return "CPF";
+        }
+        else if (identificadorApenasNumeros.length() == 14){
+            return "CNPJ";
+        }
+        else{
+            return "Número Inválido";
+        }
+    
+    
+    
+    
+    }  
 }
-  
-    
-    
-
-    
-
